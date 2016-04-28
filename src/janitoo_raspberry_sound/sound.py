@@ -38,10 +38,9 @@ from janitoo.node import JNTNode
 from janitoo.value import JNTValue
 from janitoo.component import JNTComponent
 from janitoo.bus import JNTBus
-try:
-    import Adafruit_GPIO as GPIO
-except:
-    logger.exception('Can"t import GPIO')
+
+from janitoo_raspberry_sound.thread_sound import OID
+import alsaaudio
 
 ##############################################################
 #Check that we are in sync with the official command classes
@@ -68,46 +67,43 @@ class SoundBus(JNTBus):
         :param kwargs: parameters transmitted to :py:class:`smbus.SMBus` initializer
         """
         JNTBus.__init__(self, **kwargs)
-        self._lock =  threading.Lock()
-        self.sound_device = None
-        self.export_attrs('sound_device', self.sound_device)
+        self._sound_lock = threading.Lock()
+        self.load_extensions(OID)
+        self.export_attrs('sound_acquire', self.sound_acquire)
+        self.export_attrs('sound_release', self.sound_release)
+        self.export_attrs('sound_locked', self.sound_locked)
 
     def check_heartbeat(self):
         """Check that the component is 'available'
 
         """
-        return self.sound_device is not None
+        return True
 
-    def start(self, mqttc, trigger_thread_reload_cb=None):
-        """Start the bus
-        """
-        JNTBus.start(self, mqttc, trigger_thread_reload_cb)
-        try:
-            self.sound_device = None
-        except:
-            logger.exception("[%s] - Exception when starting sound bus", self.__class__.__name__)
-        self.update_attrs('sound_device', self.sound_device)
+    def sound_acquire(self, blocking=True):
+        """Get a lock on the bus"""
+        if self._sound_lock.acquire(blocking):
+            return True
+        return False
 
-    def stop(self):
-        """Stop the bus
-        """
-        JNTBus.stop(self)
-        try:
-            pass
-        except:
-            logger.exception("[%s] - Exception when stopping sound bus", self.__class__.__name__)
-        self.sound_device = None
-        self.update_attrs('sound_device', self.sound_device)
+    def sound_release(self):
+        """Release a lock on the bus"""
+        self._sound_lock.release()
+
+    def sound_locked(self):
+        """Get status of the lock"""
+        return self._sound_lock.locked()
 
 class InputComponent(JNTComponent):
-    """ A generic component for gpio """
+    """ An input component for sound
+        https://github.com/larsimmisch/pyalsaaudio/blob/master/recordtest.py
+    """
 
     def __init__(self, **kwargs):
         """
         """
         oid = kwargs.pop('oid', 'rpisound.input')
         name = kwargs.pop('name', "Input")
-        product_name = kwargs.pop('product_name', "Audio")
+        product_name = kwargs.pop('product_name', "Audio input")
         product_type = kwargs.pop('product_type', "Software")
         product_manufacturer = kwargs.pop('product_manufacturer', "Janitoo")
         JNTComponent.__init__(self, oid=oid, name=name, product_name=product_name, product_type=product_type, product_manufacturer=product_manufacturer, **kwargs)

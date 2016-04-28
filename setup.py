@@ -87,6 +87,7 @@ setup(
     install_requires=[
                      'janitoo',
                      'janitoo_raspberry',
+                     'pyalsaaudio',
     ],
     dependency_links = [
       'https://github.com/bibi21000/janitoo/archive/master.zip#egg=janitoo',
