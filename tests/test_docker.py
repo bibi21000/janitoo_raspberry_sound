@@ -43,7 +43,7 @@ from janitoo.utils import HADD_SEP, HADD
 
 from janitoo_raspberry.server import PiServer
 
-class TestRaspberryGPIOSerser(JNTTDockerServer, JNTTDockerServerCommon):
+class TestRaspberrySoundSerser(JNTTDockerServer, JNTTDockerServerCommon):
     """Test the server
     """
     loglevel = logging.DEBUG
