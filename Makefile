@@ -128,7 +128,7 @@ develop:
 	@echo
 	@echo "Installation for developpers of ${MODULENAME} finished."
 
-docker-deps:
+docker-deps: deps
 	@echo
 	@echo "Docker dependencies for ${MODULENAME} installed."
 
