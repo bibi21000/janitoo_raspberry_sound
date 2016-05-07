@@ -129,7 +129,7 @@ develop:
 	@echo
 	@echo "Installation for developpers of ${MODULENAME} finished."
 
-docker-deps:
+docker-deps: deps
 	-cp -rf docker/config/* /opt/janitoo/etc/
 	-cp -rf docker/supervisor.conf.d/* /etc/supervisor/janitoo.conf.d/
 	-cp -rf docker/supervisor-tests.conf.d/* /etc/supervisor/janitoo-tests.conf.d/
