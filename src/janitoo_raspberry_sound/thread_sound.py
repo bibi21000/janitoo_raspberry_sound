@@ -49,8 +49,8 @@ assert(COMMAND_DESC[COMMAND_CONTROLLER] == 'COMMAND_CONTROLLER')
 
 OID = 'rpisound'
 
-def make_thread(options):
-    if get_option_autostart(options, OID) == True:
+def make_thread(options, force=False):
+    if get_option_autostart(options, OID) == True or force:
         return SoundThread(options)
     else:
         return None
