@@ -1,0 +1,30 @@
+janitoo_raspberry_sound package
+===============================
+
+Submodules
+----------
+
+janitoo_raspberry_sound.sound module
+------------------------------------
+
+.. automodule:: janitoo_raspberry_sound.sound
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+janitoo_raspberry_sound.thread_sound module
+-------------------------------------------
+
+.. automodule:: janitoo_raspberry_sound.thread_sound
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: janitoo_raspberry_sound
+    :members:
+    :undoc-members:
+    :show-inheritance:
