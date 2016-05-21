@@ -1,18 +1,7 @@
-janitoo_raspberry_sound package
-===============================
+Janitoo's extensions
+====================
 
-Show janitoo's extensions.
+This package contains the following extensions for Janitoo.
 
-Core extensions
----------------
-
-Threads
-^^^^^^^
-
- - rpisound (janitoo_raspberry_sound.thread_sound:make_thread)
-
-Components
-^^^^^^^^^^
-
- - rpisound.input (janitoo_raspberry_sound.sound:make_input)
+.. jnt-extensions::
 
