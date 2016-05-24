@@ -39,9 +39,6 @@ from janitoo.value import JNTValue
 from janitoo.component import JNTComponent
 from janitoo.bus import JNTBus
 
-from janitoo_raspberry_sound.thread_sound import OID
-import alsaaudio
-
 ##############################################################
 #Check that we are in sync with the official command classes
 #Must be implemented for non-regression
@@ -55,6 +52,9 @@ assert(COMMAND_DESC[COMMAND_SWITCH_BINARY] == 'COMMAND_SWITCH_BINARY')
 assert(COMMAND_DESC[COMMAND_WEB_RESOURCE] == 'COMMAND_WEB_RESOURCE')
 assert(COMMAND_DESC[COMMAND_DOC_RESOURCE] == 'COMMAND_DOC_RESOURCE')
 ##############################################################
+
+from janitoo_raspberry_sound. import OID
+import alsaaudio
 
 def make_input(**kwargs):
     return InputComponent(**kwargs)
@@ -101,7 +101,7 @@ class InputComponent(JNTComponent):
     def __init__(self, **kwargs):
         """
         """
-        oid = kwargs.pop('oid', 'rpisound.input')
+        oid = kwargs.pop('oid', '%s.input'%OID)
         name = kwargs.pop('name', "Input")
         product_name = kwargs.pop('product_name', "Audio input")
         product_type = kwargs.pop('product_type', "Software")
