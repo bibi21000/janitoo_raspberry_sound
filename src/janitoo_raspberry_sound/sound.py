@@ -53,7 +53,7 @@ assert(COMMAND_DESC[COMMAND_WEB_RESOURCE] == 'COMMAND_WEB_RESOURCE')
 assert(COMMAND_DESC[COMMAND_DOC_RESOURCE] == 'COMMAND_DOC_RESOURCE')
 ##############################################################
 
-from janitoo_raspberry_sound. import OID
+from janitoo_raspberry_sound import OID
 import alsaaudio
 
 def make_input(**kwargs):
